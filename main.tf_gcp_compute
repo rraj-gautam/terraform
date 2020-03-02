@@ -1,0 +1,35 @@
+provider "google" {
+  credentials = file("dev.json")
+  project     = "dev"
+  region      = "us-central1"
+}
+
+resource "google_compute_instance" "default" {
+  name         = "audit-dev"
+  machine_type = "g1-small"
+  zone         = "us-central1-a"
+
+  boot_disk {
+    initialize_params {
+      image = "centos-cloud/centos-7"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      //this needs to be includes to give vm and ephemeral(dynamic) external IP
+    }
+  }
+
+  tags = ["http-server", "https-server"]
+
+//  metadata_startup_script = "echo terraform test > /ter-test.txt"
+  metadata = {
+    startup_script = <<EOS
+    echo "terraform test" > /ter-test.txt
+    yum install telnet -y
+    EOS
+  }
+
+}
