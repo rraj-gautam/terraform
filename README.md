@@ -1,5 +1,5 @@
 # Terraform
-*Work under **Dev** Folder*
+*Work under **dev** Folder*
 
 If you want to use backend to store tfstate file in gcloud storage, use the command below, or skip:
 ```bash
