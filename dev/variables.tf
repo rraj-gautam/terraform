@@ -7,7 +7,7 @@ variable "region" {
 }
 
 variable "project-name" {
-  default = "dev-analytics-270905"
+  default = "dev"
 }
 
 variable "json-name" {
