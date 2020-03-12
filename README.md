@@ -1,4 +1,6 @@
 # Terraform
+*Work under **Dev** Folder*
+
 If you want to use backend to store tfstate file in gcloud storage, use the command below, or skip:
 ```bash
 $ gcloud auth application-default login
