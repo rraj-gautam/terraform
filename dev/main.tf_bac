@@ -1,0 +1,43 @@
+provider "google" {
+  credentials = file("dev-analytics.json")
+  project     = "dev-analytics-270905"
+  region      = "asia-aoutheast1"
+}
+
+resource "google_compute_instance" "default" {
+  name         = "analytics-dev"
+  machine_type = "e2-small"
+  zone         = "asia-southeast1-b"
+
+/*provisioner "remote-exec" {
+  inline = [
+    "sudo yum install unzip -y"
+  ]
+}
+*/
+
+  boot_disk {
+    initialize_params {
+      image = "centos-cloud/centos-7"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      //this needs to be includes to give vm and ephemeral(dynamic) external IP
+    }
+  }
+
+  tags = ["http-server", "https-server", "django"]
+
+  metadata_startup_script = "echo terraform test > /ter-test.txt; sudo yum install telnet unzip -y"
+/*  metadata = {
+    startup_script = <<EOS
+    echo "terraform test" > /ter-test2.txt
+    sudo yum install telnet -y
+    EOS
+  }
+*/
+}
+
