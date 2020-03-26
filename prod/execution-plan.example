@@ -1,0 +1,309 @@
+rraj@rraj-linux:~/Documents/terraform/ $ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # google_compute_firewall.allow-bastian-ssh will be created
+  + resource "google_compute_firewall" "allow-bastian-ssh" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + id                 = (known after apply)
+      + name               = "vpc-prod-bastian-ssh"
+      + network            = "vpc-prod"
+      + priority           = 1000
+      + project            = (known after apply)
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.10.10.2/32",
+        ]
+      + target_tags        = [
+          + "bastian-ssh",
+        ]
+
+      + allow {
+          + ports    = [
+              + "22",
+            ]
+          + protocol = "tcp"
+        }
+    }
+
+  # google_compute_firewall.allow-http will be created
+  + resource "google_compute_firewall" "allow-http" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + id                 = (known after apply)
+      + name               = "vpc-prod-http"
+      + network            = "vpc-prod"
+      + priority           = 1000
+      + project            = (known after apply)
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "0.0.0.0/0",
+        ]
+      + target_tags        = [
+          + "http",
+        ]
+
+      + allow {
+          + ports    = [
+              + "80",
+            ]
+          + protocol = "tcp"
+        }
+    }
+
+  # google_compute_firewall.allow-https will be created
+  + resource "google_compute_firewall" "allow-https" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + id                 = (known after apply)
+      + name               = "vpc-prod-https"
+      + network            = "vpc-prod- "
+      + priority           = 1000
+      + project            = (known after apply)
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "0.0.0.0/0",
+        ]
+      + target_tags        = [
+          + "https",
+        ]
+
+      + allow {
+          + ports    = [
+              + "443",
+            ]
+          + protocol = "tcp"
+        }
+    }
+
+  # google_compute_firewall.allow-internal will be created
+  + resource "google_compute_firewall" "allow-internal" {
+      + creation_timestamp = (known after apply)
+      + destination_ranges = (known after apply)
+      + direction          = (known after apply)
+      + id                 = (known after apply)
+      + name               = "vpc-prod- -allow-internal"
+      + network            = "vpc-prod- "
+      + priority           = 1000
+      + project            = (known after apply)
+      + self_link          = (known after apply)
+      + source_ranges      = [
+          + "10.15.101.0/24",
+          + "10.15.102.0/24",
+          + "10.15.103.0/24",
+        ]
+
+      + allow {
+          + ports    = [
+              + "0-65535",
+            ]
+          + protocol = "tcp"
+        }
+      + allow {
+          + ports    = [
+              + "0-65535",
+            ]
+          + protocol = "udp"
+        }
+      + allow {
+          + ports    = []
+          + protocol = "icmp"
+        }
+    }
+
+  # google_compute_instance.prod-doc-fe will be created
+  + resource "google_compute_instance" "prod-doc-fe" {
+      + can_ip_forward          = false
+      + cpu_platform            = (known after apply)
+      + current_status          = (known after apply)
+      + deletion_protection     = false
+      + guest_accelerator       = (known after apply)
+      + id                      = (known after apply)
+      + instance_id             = (known after apply)
+      + label_fingerprint       = (known after apply)
+      + machine_type            = "e2-medium"
+      + metadata_fingerprint    = (known after apply)
+      + metadata_startup_script = <<~EOT
+            sudo yum install telnet unzip wget -y
+            sed -i s/^SELINUX=.*$/SELINUX=disabled/ /etc/selinux/config
+            setenforce 0
+            yum install https://repo.aerisnetwork.com/stable/centos/7/x86_64/aeris-release-1.0-4.el7.noarch.rpm -y
+            yum install nginx-more -y
+            systemctl enable --now nginx
+        EOT
+      + min_cpu_platform        = (known after apply)
+      + name                    = "prod-doc-fe"
+      + project                 = (known after apply)
+      + self_link               = (known after apply)
+      + tags                    = [
+          + "bastian-ssh",
+          + "http",
+          + "https",
+        ]
+      + tags_fingerprint        = (known after apply)
+      + zone                    = "asia-southeast1-b"
+
+      + boot_disk {
+          + auto_delete                = true
+          + device_name                = (known after apply)
+          + disk_encryption_key_sha256 = (known after apply)
+          + kms_key_self_link          = (known after apply)
+          + mode                       = "READ_WRITE"
+          + source                     = (known after apply)
+
+          + initialize_params {
+              + image  = "centos-7-v20200309"
+              + labels = (known after apply)
+              + size   = (known after apply)
+              + type   = (known after apply)
+            }
+        }
+
+      + network_interface {
+          + name               = (known after apply)
+          + network            = "google_compute_network.vpc_network.name"
+          + network_ip         = (known after apply)
+          + subnetwork         = "google_compute_subnetwork.singapore-subnet.name"
+          + subnetwork_project = (known after apply)
+
+          + access_config {
+              + nat_ip       = (known after apply)
+              + network_tier = (known after apply)
+            }
+        }
+
+      + scheduling {
+          + automatic_restart   = (known after apply)
+          + on_host_maintenance = (known after apply)
+          + preemptible         = (known after apply)
+
+          + node_affinities {
+              + key      = (known after apply)
+              + operator = (known after apply)
+              + values   = (known after apply)
+            }
+        }
+    }
+
+  # google_compute_network.vpc_network will be created
+  + resource "google_compute_network" "vpc_network" {
+      + auto_create_subnetworks         = false
+      + delete_default_routes_on_create = false
+      + gateway_ipv4                    = (known after apply)
+      + id                              = (known after apply)
+      + ipv4_range                      = (known after apply)
+      + name                            = "vpc-prod- "
+      + project                         = (known after apply)
+      + routing_mode                    = "GLOBAL"
+      + self_link                       = (known after apply)
+    }
+
+  # google_compute_subnetwork.mumbai-subnet will be created
+  + resource "google_compute_subnetwork" "mumbai-subnet" {
+      + creation_timestamp       = (known after apply)
+      + enable_flow_logs         = (known after apply)
+      + fingerprint              = (known after apply)
+      + gateway_address          = (known after apply)
+      + id                       = (known after apply)
+      + ip_cidr_range            = "10.15.102.0/24"
+      + name                     = "asia-south1-subnet"
+      + network                  = "google_compute_network.vpc_network.self_link"
+      + private_ip_google_access = true
+      + project                  = (known after apply)
+      + region                   = "asia-south1"
+      + secondary_ip_range       = (known after apply)
+      + self_link                = (known after apply)
+
+      + log_config {
+          + aggregation_interval = "INTERVAL_10_MIN"
+          + flow_sampling        = 0.5
+          + metadata             = "INCLUDE_ALL_METADATA"
+        }
+    }
+
+  # google_compute_subnetwork.singapore-subnet will be created
+  + resource "google_compute_subnetwork" "singapore-subnet" {
+      + creation_timestamp       = (known after apply)
+      + enable_flow_logs         = (known after apply)
+      + fingerprint              = (known after apply)
+      + gateway_address          = (known after apply)
+      + id                       = (known after apply)
+      + ip_cidr_range            = "10.15.101.0/24"
+      + name                     = "asia-southeast1-subnet"
+      + network                  = "google_compute_network.vpc_network.self_link"
+      + private_ip_google_access = true
+      + project                  = (known after apply)
+      + region                   = "asia-southeast1"
+      + secondary_ip_range       = (known after apply)
+      + self_link                = (known after apply)
+
+      + log_config {
+          + aggregation_interval = "INTERVAL_10_MIN"
+          + flow_sampling        = 0.5
+          + metadata             = "INCLUDE_ALL_METADATA"
+        }
+    }
+
+  # google_compute_subnetwork.us-subnet will be created
+  + resource "google_compute_subnetwork" "us-subnet" {
+      + creation_timestamp       = (known after apply)
+      + enable_flow_logs         = (known after apply)
+      + fingerprint              = (known after apply)
+      + gateway_address          = (known after apply)
+      + id                       = (known after apply)
+      + ip_cidr_range            = "10.15.103.0/24"
+      + name                     = "us-central1-subnet"
+      + network                  = "google_compute_network.vpc_network.self_link"
+      + private_ip_google_access = true
+      + project                  = (known after apply)
+      + region                   = "us-central1"
+      + secondary_ip_range       = (known after apply)
+      + self_link                = (known after apply)
+
+      + log_config {
+          + aggregation_interval = "INTERVAL_10_MIN"
+          + flow_sampling        = 0.5
+          + metadata             = "INCLUDE_ALL_METADATA"
+        }
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.
+
+Warning: Interpolation-only expressions are deprecated
+
+  on main.tf line 31, in resource "google_compute_instance" "prod-doc-fe":
+  31:   metadata_startup_script = "${file("startup-script.sh")}"
+
+Terraform 0.11 and earlier required all non-constant expressions to be
+provided via interpolation syntax, but this pattern is now deprecated. To
+silence this warning, remove the "${ sequence from the start and the }"
+sequence from the end of this expression, leaving just the inner expression.
+
+Template interpolation syntax is still used to construct strings from
+expressions when the template includes multiple interpolation sequences or a
+mixture of literal strings and interpolations. This deprecation applies only
+to templates that consist entirely of a single interpolation sequence.
+
+(and 5 more similar warnings elsewhere)
+
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+
