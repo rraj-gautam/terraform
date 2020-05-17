@@ -21,7 +21,7 @@ $ terraform apply bucket1.plan
 $ terraform destroy -target=module.bucket1
 ```
 
-## Terraform Modules using .tfvarfs files*
+## Terraform Modules using .tfvarfs files
 * **variables.tf** = used to define variables (and also declare variable values).
 * **variables.tfvarfs** = used to declare varaiable values. It has highest priority. It is also used to seggregate the secrets. By default terraform looks for **terraform.tfvars** file.
 Here, we are using **dev.tfvars** and **prod.tfvars** to seggregate the different environments.
@@ -41,3 +41,13 @@ $ terraform apply prod-bucket.plan
 $ terraform destroy -target=module.bucket1 -var-file=prod.tfvars
 $ terraform destroy -target=module.bucket1 -var-file=dev.tfvars
 ```
+## Terraform Modules using *workspace*
+* **workspace** is used in cases where you can use a same backend.tf file for different environments. In general, it seggregates the .tfstate file based on workspace name.  **default** is the default workspace, and **terraform.tfstate** is the default tfstate file. Here we are using **dev** and **prod** workspace for different environment and **dev.tfstate** and **prod.tfstate** are the respective tfstate file maintained by terraform.
+
+* To use the workspace
+```bash
+$ terraform workspace list // shows all workspaces
+$ terraform workspace show // shows current workspace
+$ terraform workspace new dev // creates a new workspace named dev
+$ terraform workspace new prod // creates a new workspace named prod
+$ terraform workspace select dev // selects dev as a current working workspace.
