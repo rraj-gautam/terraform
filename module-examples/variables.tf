@@ -6,13 +6,9 @@ variable "region" {
   }
 }
 
-variable "project_name" {
-  default = "myproject"
-}
-
-variable "json-name" {
-  default = "key.json"
-}
+variable "project_name" {} //will take these values form .tfvars file
+variable "json-name" {}
+variable "env"{}
 
 variable "vpc1_name" {
   default = "myvpc"
