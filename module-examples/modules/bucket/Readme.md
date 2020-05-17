@@ -2,7 +2,7 @@
 ```
 module "bucket1" {
   source = "github.com/rraj-gautam/terraform/module-examples/modules/bucket"
-  region = var.region["us"]
+  region = var.region
   bucket_name = var.bucket_name
 }
 ```
