@@ -18,12 +18,6 @@ module "vpc1" {
     source = "./modules/network/vpc"
     vpc_name = var.vpc1_name
     project_name = var.project_name
-    # subnet1_name = "${var.region["us"]}-subnet"
-    # subnet1_ip_cidr_range = var.subnet["us"]
-    # subnet1_region = var.region["us"]
-    #subnet2_name = "${var.region["singapore"]}-subnet"
-    # subnet2_ip_cidr_range = var.subnet["singapore"]
-    # subnet2_region = var.region["singapore"]
 #     subnets = [
 #        {
 #             subnet_name           = "${var.region["us"]}-subnet"
@@ -37,7 +31,7 @@ module "vpc1" {
 #         }              
 #     ]
 }    
-module "subnet1" {
+module "vpc1-subnet1" {
   source = "./modules/network/subnet"
   subnet_name = "${var.region["us"]}-subnet"
   project_name = var.project_name
@@ -45,7 +39,7 @@ module "subnet1" {
   vpc = "${module.vpc1.vpc_self_link}"
   ip_cidr_range = var.subnet["us"]
 }
-module "subnet2" {
+module "vpc1-subnet2" {
   source = "./modules/network/subnet"
   subnet_name = "${var.region["singapore"]}-subnet"
   project_name = var.project_name
@@ -71,4 +65,10 @@ module "instance1" {
   image = var.os["centos7"]
   vpc_name = module.vpc1.vpc_name
   subnet_name = module.subnet1.subnet_name
+}
+
+module "bucket1" {
+  source = "./modules/bucket"
+  region = var.region["us"]
+  bucket_name = var.bucket_name
 }

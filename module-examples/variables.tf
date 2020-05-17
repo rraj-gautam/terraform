@@ -49,6 +49,21 @@ variable "os" {
 variable "instance_name" {
   default = "myvm"
 }
+
+variable "bucket_name" {
+  default = "mybucket-1234"
+}
+
+variable "backend_bucket_name" {
+  default = "tfstate-myapp-bucket"
+}
+
+variable "backend_prefix" {
+  default = "dev-myapp"
+}
+
+
+
 variable "ssh_user" {
   default = "rraj"
 }
