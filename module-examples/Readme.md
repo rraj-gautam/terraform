@@ -23,7 +23,7 @@ $ terraform destroy -target=module.bucket1
 
 ## Terraform Modules using .tfvarfs files*
 * **variables.tf** = used to define variables (and also declare variable values).
-* **variables.tfvarfs** = used to declare varaiable values. It has highest priority. It is also used to seggregate the secrets.
+* **variables.tfvarfs** = used to declare varaiable values. It has highest priority. It is also used to seggregate the secrets. By default terraform looks for **terraform.tfvars** file.
 Here, we are using **dev.tfvars** and **prod.tfvars** to seggregate the different environments.
 
 * To create dev environment resources
