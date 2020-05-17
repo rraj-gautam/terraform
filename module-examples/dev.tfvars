@@ -1,3 +1,3 @@
 env = "dev"
-project_name = "crypto-argon-261203"
+project_name = "dev-project"
 json-name = "key.json"
