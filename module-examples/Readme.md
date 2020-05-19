@@ -51,3 +51,24 @@ $ terraform workspace show // shows current workspace
 $ terraform workspace new dev // creates a new workspace named dev
 $ terraform workspace new prod // creates a new workspace named prod
 $ terraform workspace select dev // selects dev as a current working workspace.
+```
+
+## Terraform Modules using *output.tf*
+* using ouput.tf to display required output data (and save to a defined variable) from creates resources like Instance IP Address.
+* To view all the ouput values of created resource
+```bash
+$ terraform show
+```
+This is very useful command. We can use this command to identify how to get output of that value.
+* To refresh the changes of ouyput varaibles in config.
+```
+$ terraform refresh
+```
+* To list all the output variables
+```
+$ terraform ouput
+```
+* To list only required output variables
+```
+$ terraform ouput instance_public_ip
+```
