@@ -1,5 +1,8 @@
 # Terraform
-*Work under **dev** Folder*
+
+*Work under dev Folder to test basic yamls resource definition.*
+*Work under prod Folder to test optimized yamls resource definition.*
+*Work under module-examples to test modules and other functionality configurations*
 
 If you want to use backend to store tfstate file in gcloud storage, use the command below, or skip:
 ```bash
