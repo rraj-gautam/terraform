@@ -1,2 +1,4 @@
-aws/terraform.tfstate.bakcup
-aws/terraform.tfstate
+**/*.tfstate.*
+**/*.tfstate
+**/.terraform/
+**/**/.terraform/
