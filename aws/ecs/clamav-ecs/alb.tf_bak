@@ -1,7 +1,7 @@
 resource "aws_alb" "main" {
   name            = "clamav-load-balancer"
   subnets         = var.ecs_public_subnet_ids
-  internal           = false
+  internal           = true
   load_balancer_type = "network"
   #security_groups = ["aws_security_group.ecs_lb_sg.id"]
 

@@ -1,7 +1,7 @@
 
 variable "aws_region" {
   description = "The AWS region things are created in"
-  default     = "eu-central-1"
+  default     = "us-east-1"
 }
 
 variable "ecs_task_execution_role_name" {

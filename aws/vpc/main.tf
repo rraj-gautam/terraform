@@ -18,7 +18,7 @@ resource "aws_vpc" "test-vpc" {
 resource "aws_subnet" "test-subnet-pub" {
   vpc_id     = aws_vpc.test-vpc.id
   cidr_block = var.cidr_subnet_pub
-  #map_public_ip_on_launch = true
+  map_public_ip_on_launch = true
   availability_zone = var.pub_availability_zone
   tags = {
     env = var.env
@@ -29,11 +29,11 @@ resource "aws_subnet" "test-subnet-pub" {
 resource "aws_subnet" "test-subnet-pub-2" {
   vpc_id     = aws_vpc.test-vpc.id
   cidr_block = var.cidr_subnet_pub-2
-  #map_public_ip_on_launch = true
+  map_public_ip_on_launch = true
   availability_zone = var.priv_availability_zone
   tags = {
     env = var.env
-    "Name" = "test-subnet-pub"
+    "Name" = "test-subnet-pub-2"
   }
 }
 
