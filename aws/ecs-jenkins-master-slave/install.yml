@@ -1,0 +1,53 @@
+- hosts: all
+  become: yes
+  tasks:
+
+    # - name: update
+    #   yum:
+    #     name: "*"
+    #     state: latest
+    
+    - name: install packages
+      yum:
+        name: "{{ packages }}"
+        state: present 
+      vars:
+        packages: 
+          - java-1.8.0-openjdk
+          - git
+          - maven 
+          - python3
+          - python3-pip
+          - wget
+
+    # - name: install ansible
+    #   #become: no
+    #   command: pip3 install ansible
+
+    # - name: install docker
+    #   shell: |
+    #     dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+    #     dnf install --nobest docker-ce -y
+
+    - name: install jenkins
+      shell: |
+        wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
+        rpm --import http://pkg.jenkins.io/redhat/jenkins.io.key
+        yum install -y jenkins
+        # sudo usermod -a -G docker jenkins
+    
+    - name: start jenkins
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+    
+    - pause: seconds=10
+    - name: show initial password
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: initial_pass
+      
+    - debug: var=initial_pass.stdout
+  
+    
+        

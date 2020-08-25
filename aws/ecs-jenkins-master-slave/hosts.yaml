@@ -1,0 +1,6 @@
+all:
+    hosts:
+        aws:
+            ansible_host:
+            ansible_user: 
+            ansible_passowrd:     
