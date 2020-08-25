@@ -27,8 +27,8 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   }
 
   ttl {
-    attribute_name = ""
-    enabled        = false
+    attribute_name = "TTL"
+    enabled        = true
   }
 
     global_secondary_index {
