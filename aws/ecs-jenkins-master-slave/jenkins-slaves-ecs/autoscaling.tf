@@ -6,7 +6,13 @@ resource "aws_launch_configuration" "ecs_launch_config" {
     instance_type        = "t2.small"
     key_name = var.key_name
     associate_public_ip_address = true
-    user_data = "#!/bin/bash\necho ECS_CLUSTER='${var.stack_name}' > /etc/ecs/ecs.config"
+    user_data = << EOT
+    	#!/bin/bash
+    	echo ECS_CLUSTER='${var.stack_name}' > /etc/ecs/ecs.config
+    	chmod 777 /var/run/docker.sock
+    	mkdir /jenkins
+    	chmod 777 /jenkins -R
+    EOT
 }
 
 resource "aws_autoscaling_group" "failure_analysis_ecs_asg" {
