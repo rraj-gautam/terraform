@@ -1,0 +1,13 @@
+FROM jenkinsci/jnlp-slave
+
+USER root
+
+RUN apt-get update
+RUN apt-get install unzip wget -y
+RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz  && tar zxvf docker-19.03.9.tgz && cp docker/docker /usr/bin
+RUN chmod 777 /usr/bin/docker
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && /bin/sh ./aws/install
+RUN rm -rf docker-19.03.9.tgz awscliv2.zip .aws docker
+
+USER jenkins
+ENTRYPOINT ["jenkins-agent"]
