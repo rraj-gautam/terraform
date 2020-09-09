@@ -44,6 +44,11 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   tags = {
     Name        = "dynamodb-table-1"
     Environment = "production"
+    Confidentiality = terraform.workspace == "default" ? "Strictly Confidential" : "Business Only"
+    "Impact Order" = terraform.workspace == "test" ? "Medium" : "High"
+    "Availability" = terraform.workspace == "production" ? "High" : (terraform.workspace == "default" ? "Medium" : "Low")
+    "Description" = "Cloud global settings (${terraform.workspace})"
+
   }
 
   point_in_time_recovery {

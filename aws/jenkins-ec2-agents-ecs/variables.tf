@@ -18,7 +18,7 @@ variable "region" {
 
 variable "ecs_cluster_name" {
   description = "The name of the Amazon ECS cluster."
-  default     = "jenkins"
+  default     = "hudson"
 }
 
 variable "aws_region" {
@@ -33,10 +33,18 @@ variable "tags" {
   }
 }
 
-variable "stack_name" {
+variable "ecs_cluster_name" {
   description = "Name for stack"
-  default     = "jenkins-agents"
+  default     = "hudson-agents"
 }
+
+variable "agent_instance_type" {
+  default = "t2.small"
+}
+
+# variable "agent_instance_ami" {
+#   default = "ami-02cfc1ae415add4ce"
+# }
 
 # variable "cloudwatch_retention" {
 # description = "CloudWatch Retention Period"

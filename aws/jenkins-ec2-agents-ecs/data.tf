@@ -4,29 +4,30 @@ data "terraform_remote_state" "ecs" {
   backend = "s3"
   config = {
     bucket = "manish-terraform-states"
-    key    = "clamav.tfstate"
+    key    = "vpc.tfstate"
     region = "us-east-1"
   }
 }
-
-#data "terraform_remote_state" "vpc" {
-#  backend = "local"
-#
-#  config = {
-#    path = "../vpc/terraform.tfstate"
-#  }
-#}
 
 data "aws_vpc" "this" {
   id = data.terraform_remote_state.ecs.outputs.vpc_id
 }
 
-data "aws_subnet" "public" {
+data "aws_subnet" "public-2" {
   vpc_id = data.aws_vpc.this.id
 
   filter {
     name   = "tag:Name"
     values = ["*pub-2*"]
+  }
+}
+
+data "aws_subnet" "private-2" {
+  vpc_id = data.aws_vpc.this.id
+
+  filter {
+    name   = "tag:Name"
+    values = ["*priv-2*"]
   }
 }
 
@@ -49,5 +50,5 @@ data "aws_subnet_ids" "public" {
 }
 
 data "template_file" "user_data" {
-  template = file("./install-scripts/install-ubuntu.sh")
+  template = file("./files/install-scripts/install-ubuntu.sh")
 }

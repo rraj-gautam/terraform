@@ -4,8 +4,8 @@
 
     # - name: update
     #   yum:
-    #     name: "*"
-    #     state: latest
+    #      name: "*"
+    #      state: latest
     
     - name: install packages
       yum:
